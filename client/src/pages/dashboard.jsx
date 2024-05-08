@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
- import './style.css';
+import './style.css';
 import CreateForm from './CreateForm';
 import FormList from './FormList';
 
@@ -12,28 +12,34 @@ const Dashboard = () => {
     setSelectedButton(buttonName);
   };
 
+  const handleLogout = () => {
+    // Clear token from local storage
+    localStorage.removeItem('token');
+  };
+
   return (
     <div className="dashboard">
       <div className="sidebar">
         <h2>Dashboard</h2>
-        <div className="butons">
+        <div className="buttons">
           <button
             className={`button ${selectedButton === 'createForm' ? 'selected' : ''}`}
             onClick={() => handleButtonClick('createForm')}
           >
             Create Form
-          </button>{ " "}
+          </button>{" "}
           <button
             className={`button ${selectedButton === 'formList' ? 'selected' : ''}`}
             onClick={() => handleButtonClick('formList')}
           >
             Form List
-          </button>
+          </button>{" "}
+          <Link to="/" className="logout" onClick={handleLogout}>Logout</Link>
         </div>
       </div>
       <div className="content">
-        {selectedButton === 'createForm' && <h2> <CreateForm/></h2>}
-        {selectedButton === 'formList' && <h2><FormList/></h2>}
+        {selectedButton === 'createForm' && <CreateForm />}
+        {selectedButton === 'formList' && <FormList />}
       </div>
     </div>
   );
