@@ -1,3 +1,5 @@
+
+
 import React, { useState } from "react";
 import axios from "axios";
 
@@ -8,6 +10,8 @@ const CreateForm = () => {
     gender: "",
     contactNumber: "",
   });
+  const [error, setError] = useState("");
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
 
   const { name, age, gender, contactNumber } = formData;
 
@@ -20,7 +24,13 @@ const CreateForm = () => {
     try {
       const res = await axios.post("http://localhost:4000/api/forms", formData);
       console.log(res.data);
+      setShowSuccessPopup(true);
+      setTimeout(() => {
+        setShowSuccessPopup(false);
+        setFormData({ name: "", age: "", gender: "", contactNumber: "" });
+      }, 1000);
     } catch (error) {
+      setError("Form submission failed. Please try again.");
       console.error(error.response.data);
     }
   };
@@ -28,6 +38,10 @@ const CreateForm = () => {
   return (
     <div>
       <h2>Create Form</h2>
+      {error && <p className="error">{error}</p>}
+      {showSuccessPopup && (
+        <p className="success-popup">Form submitted successfully!</p>
+      )}
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -45,7 +59,12 @@ const CreateForm = () => {
           onChange={handleChange}
           required
         />
-        <select name="gender" value={gender} onChange={handleChange} required>
+        <select
+          name="gender"
+          value={gender}
+          onChange={handleChange}
+          required
+        >
           <option value="">Select Gender</option>
           <option value="male">Male</option>
           <option value="female">Female</option>
