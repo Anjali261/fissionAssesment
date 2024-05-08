@@ -2,6 +2,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
  import './style.css';
+import CreateForm from './CreateForm';
+import FormList from './FormList';
 
 const Dashboard = () => {
   const [selectedButton, setSelectedButton] = useState(null);
@@ -30,8 +32,8 @@ const Dashboard = () => {
         </div>
       </div>
       <div className="content">
-        {selectedButton === 'createForm' && <h2>Create Form Content</h2>}
-        {selectedButton === 'formList' && <h2>Form List Content</h2>}
+        {selectedButton === 'createForm' && <h2> <CreateForm/></h2>}
+        {selectedButton === 'formList' && <h2><FormList/></h2>}
       </div>
     </div>
   );

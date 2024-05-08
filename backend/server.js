@@ -8,7 +8,7 @@ const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const bodyParser = require('body-parser');
 const userRouter = require("./routes/userRoutes");
-
+const formRouter = require("./routes/formRoutes");
 
 dotenv.config();
 app.use(cors());
@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 
 
 app.use("/api",userRouter);
-
+app.use("/api",formRouter);
 
 
 
